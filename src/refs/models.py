@@ -38,3 +38,15 @@ class Author(models.Model):
     def __str__(self) -> str:
         return f"{self.name}"
     
+class Publisher(models.Model):
+    """class for publisher references"""
+    name = models.CharField(max_length=100)
+    description = models.TextField(
+        blank=True,
+        null=True
+    )
+
+
+    def __str__(self) -> str:
+        return f"{self.name} #{self.pk}"
+    
