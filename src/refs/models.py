@@ -9,9 +9,9 @@ class Genre(models.Model):
         null=True
     )
 
-
-    def __str__(self) -> str:
-        return f"{self.pk}. {self.name}"
+    def get_absolute_url(self):
+        return f'/genre-detail/{self.pk}'
+    
     
 class Series(models.Model):
     """class for series references"""
@@ -23,7 +23,10 @@ class Series(models.Model):
 
 
     def __str__(self) -> str:
-        return f"{self.name}"
+        return f'{self.name}'
+
+    def get_absolute_url(self):
+        return f'/series-detail/{self.pk}'
 
 class Author(models.Model):
     """class for author references"""
@@ -35,8 +38,8 @@ class Author(models.Model):
     )
 
 
-    def __str__(self) -> str:
-        return f"{self.name}"
+    def get_absolute_url(self):
+        return f'/author-detail/{self.pk}'
     
 class Publisher(models.Model):
     """class for publisher references"""
@@ -47,6 +50,6 @@ class Publisher(models.Model):
     )
 
 
-    def __str__(self) -> str:
-        return f"{self.name} #{self.pk}"
+    def get_absolute_url(self):
+        return f'/publisher-detail/{self.pk}'
     
