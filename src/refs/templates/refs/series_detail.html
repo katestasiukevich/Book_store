@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{object.name}}</title>
+    <style>
+        a {
+            text-decoration: none;
+            /* Отменяем подчеркивание у ссылки */
+            color: rgb(253, 251, 251);
+        }
+
+        button {
+            border: 0;
+            /*ubrali ramku vokrug*/
+            border-radius: 7px;
+            /*zakruglili kraya*/
+            background-color: #048075;
+            /*cvet fona knopki*/
+            color: #fff;
+            /*cvet texta*/
+            padding: 5px 10px;
+            /*vnutrennie otstupi*/
+            font-size: 16px;
+            /*razmer texta*/
+            text-transform: uppercase;
+            /*zaglavnie bukvi*/
+            font-weight: 300;
+            /*tolschina bukv*/
+            font-family: Roboto;
+            /*shrift*/
+            cursor: pointer;
+            /*izmenili kursor na palchik*/
+        }
+
+        button:hover {
+            background-color: #07c9b9;
+        }
+
+        fieldset {
+            display: block;
+            margin-left: 0px;
+            margin-right: 700px;
+            padding-top: 1em;
+            padding-left: 0.75em;
+            padding-right: 0.75em;
+            padding-bottom: 0.625em;
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 15px;
+            border-color: #048075;
+            background-color: #f7f7f74b;
+            background-image: url(https://kalix.club/uploads/posts/2022-12/1671721501_kalix-club-p-krasnii-abstraktnii-fon-instagram-2.jpg)
+        }
+
+        table,
+        td {
+            border-style: hidden;
+            border-bottom: #fff;
+            border-bottom-style: dotted;
+            border-width: 1px;
+            color: #fff;
+            font-size: 112%;
+        }
+        th {
+            color:#048075;
+            font-size: 120%;
+            border-style: hidden;
+
+        }
+
+    </style>
+</head>
+<header>
+    <button><a href="/author-list/">Авторы</a></button>
+    <button><a href="/genre-list/">Жанры</a></button>
+    <button><a href="/series-list/">Серии книг</a></button>
+    <button><a href="/publisher-list/">Издательства</a></button>
+</header>
+<hr>
+<body>
+    <button><a href="/series-list/"> ⭠ Назад к списку серий</a></button>
+    <hr>
+    <h1>О СЕРИИ</h1>
+    <ul>
+        <li><b>id</b>: {{object.id}}</li><br>
+        <li><b>название</b>: {{object.name}}</li><br>
+        <li><b>описание</b>: {{object.description}}</li><br>
+    </ul>
+    <button><a href='/series-update/{{object.id}}/'>Редактировать</a></button>
+    <button><a href='/series-delete/{{object.id}}/'>Удалить</a></button>
+</body>
+</html>

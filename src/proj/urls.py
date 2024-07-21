@@ -17,6 +17,32 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from refs import views as ref_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('author-list/', ref_views.AuthorList.as_view()),
+    path('author-detail/<int:pk>/', ref_views.AuthorDetail.as_view()),
+    path('author-create/', ref_views.AuthorCreate.as_view()),
+    path('author-update/<int:pk>/', ref_views.AuthorUpdate.as_view()),
+    path('author-delete/<int:pk>/', ref_views.AuthorDelete.as_view()),
+
+    path('genre-list/', ref_views.GenreList.as_view()),
+    path('genre-detail/<int:pk>/', ref_views.GenreDetail.as_view()),
+    path('genre-create/', ref_views.GenreCreate.as_view()),
+    path('genre-update/<int:pk>/', ref_views.GenreUpdate.as_view()),
+    path('genre-delete/<int:pk>/', ref_views.GenreDelete.as_view()),
+
+    path('series-list/', ref_views.SeriesList.as_view()),
+    path('series-detail/<int:pk>/', ref_views.SeriesDetail.as_view()),
+    path('series-create/', ref_views.SeriesCreate.as_view()),
+    path('series-update/<int:pk>/', ref_views.SeriesUpdate.as_view()),
+    path('series-delete/<int:pk>/', ref_views.SeriesDelete.as_view()),
+
+    path('publisher-list/', ref_views.PublisherList.as_view()),
+    path('publisher-detail/<int:pk>/', ref_views.PublisherDetail.as_view()),
+    path('publisher-create/', ref_views.PublisherCreate.as_view()),
+    path('publisher-update/<int:pk>/', ref_views.PublisherUpdate.as_view()),
+    path('publisher-delete/<int:pk>/', ref_views.PublisherDelete.as_view()),
 ]
