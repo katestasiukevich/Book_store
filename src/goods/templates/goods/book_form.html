@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Create</title>
+</head>
+<body>
+    <header>
+        <button><a href="/book-list/">Книги</a></button>
+        <button><a href="/author-list/">Авторы</a></button>
+        <button><a href="/genre-list/">Жанры</a></button>
+        <button><a href="/series-list/">Серии книг</a></button>
+        <button><a href="/publisher-list/">Издательства</a></button>
+    </header>
+    <hr>
+    <h1>{{ headline }}</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+</body>
+</html>
