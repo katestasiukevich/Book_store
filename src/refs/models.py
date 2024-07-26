@@ -34,12 +34,12 @@ class Author(models.Model):
     name = models.CharField(max_length=100)
     series = models.ForeignKey(Series, on_delete=models.PROTECT, related_name="authors")
     description = models.TextField(blank=True, null=True)
-    author_img = models.ImageField(
-        null=True,
-        blank=True,
-        verbose_name="Фото/портрет автора",
-        upload_to="author_image",
-    )
+    # author_img = models.ImageField(
+    #     null=True,
+    #     blank=True,
+    #     verbose_name="Фото/портрет автора",
+    #     upload_to="author_image",
+    # )
 
     def __str__(self) -> str:
         return f"{self.name}"
