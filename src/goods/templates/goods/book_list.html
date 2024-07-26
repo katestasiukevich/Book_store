@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{object.name}}</title>
+    <title>Список книг</title>
     <style>
         a {
             text-decoration: none;
@@ -38,29 +38,15 @@
             background-color: #07c9b9;
         }
 
-        fieldset {
-            display: block;
-            margin-left: 0px;
-            margin-right: 700px;
-            padding-top: 1em;
-            padding-left: 0.75em;
-            padding-right: 0.75em;
-            padding-bottom: 0.625em;
-            border-width: 2px;
-            border-style: solid;
-            border-radius: 15px;
-            border-color: #048075;
-            background-color: #f7f7f74b;
-            background-image: url(https://kalix.club/uploads/posts/2022-12/1671721501_kalix-club-p-krasnii-abstraktnii-fon-instagram-2.jpg)
+        table{
+            border-style: hidden;
         }
-
-        table,
         td {
             border-style: hidden;
-            border-bottom: #fff;
+            border-bottom: #000;
             border-bottom-style: dotted;
             border-width: 1px;
-            color: #fff;
+            color: #000;
             font-size: 112%;
         }
         th {
@@ -69,12 +55,9 @@
             border-style: hidden;
 
         }
-
-        .no_buton_link {
-            color: rgb(1, 105, 91);
-        }
     </style>
 </head>
+<body>
 <header>
     <button><a href="/book-list/">Книги</a></button>
     <button><a href="/author-list/">Авторы</a></button>
@@ -84,19 +67,37 @@
 </header>
 <hr>
 <body>
-    <button><a href="/author-list/"> ⭠ Назад к списку авторов</a></button>
-    <hr>
-    <h1>ОБ АВТОРЕ</h1>
-    {% if object.author_img %}
-        <img src="{{ object.author_img.url }}" height="200px">
-    {% endif %}
-    <ul>
-        <li><b>id</b>: {{object.id}}</li><br>
-        <li><b>имя</b>: {{object.name}}</li><br>
-        <li><b>описание</b>: {{object.description}}</li><br>
-        <li><b>серия</b>: <a href="/series-detail/{{object.series.id}}/" class="no_buton_link">{{object.series.name}}</a></li>
-    </ul>
-    <button><a href='/author-update/{{object.id}}/'>Редактировать</a></button>
-    <button><a href='/author-delete/{{object.id}}/'>Удалить</a></button>
+    <button><a href='/book-create/'>Добавить книгу</a></button><br>
+
+        <table border="1">
+            <tr>
+                <th>Обложка</th>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Жанр</th>
+                <th colspan="3">Действия</th>
+            </tr>
+            {% for obj in object_list %}
+            <tr>
+                <td><img src="{{obj.cover.url}}" width=70px></td>
+                <td>{{obj.id}}</td>
+                <td>{{obj.title}}</td>
+                <td>{{obj.author}}</td>
+                <td>{{obj.genre}}</td>
+                <td class="link">
+                    <button><a href='/book-detail/{{obj.id}}/'>Посмотреть</a></button>
+                </td>
+                <td class="link">
+                    <button><a href='/book-update/{{obj.id}}/'>Редактировать</a></button>
+                </td>
+                <td class="link">
+                    <button><a href='/book-delete/{{obj.id}}/'>Удалить</a></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    
 </body>
 </html>

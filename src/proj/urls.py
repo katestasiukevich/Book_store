@@ -16,8 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 
+from proj import settings
 from refs import views as ref_views
+from goods import views as goods_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,4 +49,13 @@ urlpatterns = [
     path('publisher-create/', ref_views.PublisherCreate.as_view()),
     path('publisher-update/<int:pk>/', ref_views.PublisherUpdate.as_view()),
     path('publisher-delete/<int:pk>/', ref_views.PublisherDelete.as_view()),
+
+    path('book-list/', goods_views.BookList.as_view()),
+    path('book-create/', goods_views.BookCreate.as_view()),
+    path('book-detail/<int:pk>/', goods_views.BookDetail.as_view()),
+    path('book-update/<int:pk>/', goods_views.BookUpdate.as_view()),
+    path('book-delete/<int:pk>/', goods_views.BookDelete.as_view()),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

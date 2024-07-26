@@ -20,12 +20,22 @@ class AuthorDetail(generic.DetailView):
 
 class AuthorCreate(generic.CreateView):
     model = models.Author
-    fields = ['name', 'series', 'description']
+    fields = ['name', 'series', 'description', 'author_img']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Добавление нового автора'
+        return context
 
 
 class AuthorUpdate(generic.UpdateView):
     model = models.Author
-    fields = ['name', 'series', 'description']
+    fields = ['name', 'series', 'description', 'author_img']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Редактирование автора'
+        return context
 
 
 class AuthorDelete(generic.DeleteView):
@@ -45,10 +55,20 @@ class GenreCreate(generic.CreateView):
     model = models.Genre
     fields = ['name', 'description']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Добавление жанра'
+        return context
+
 
 class GenreUpdate(generic.UpdateView):
     model = models.Genre
     fields = ['name', 'description']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Редактирование жанра'
+        return context
 
 
 class GenreDelete(generic.DeleteView):
@@ -68,10 +88,20 @@ class SeriesCreate(generic.CreateView):
     model = models.Series
     fields = ['name', 'description']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Добавление серии'
+        return context
+
 
 class SeriesUpdate(generic.UpdateView):
     model = models.Series
     fields = ['name', 'description']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Редактирование серии'
+        return context
 
 
 class SeriesDelete(generic.DeleteView):
@@ -91,10 +121,20 @@ class PublisherCreate(generic.CreateView):
     model = models.Publisher
     fields = ['name', 'description']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Добавление издательства'
+        return context
+
 
 class PublisherUpdate(generic.UpdateView):
     model = models.Publisher
     fields = ['name', 'description']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Редактирование издательства'
+        return context
 
 
 class PublisherDelete(generic.DeleteView):
