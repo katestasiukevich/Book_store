@@ -19,7 +19,6 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from proj import settings
 from refs import views as ref_views
 from goods import views as goods_views
 

@@ -1,4 +1,3 @@
-from msilib.schema import CheckBox
 from django.db import models
 
 from refs.models import *
