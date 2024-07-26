@@ -20,7 +20,7 @@ class AuthorDetail(generic.DetailView):
 
 class AuthorCreate(generic.CreateView):
     model = models.Author
-    fields = ['name', 'series', 'description', 'author_img']
+    fields = ['name', 'series', 'description']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,7 +30,7 @@ class AuthorCreate(generic.CreateView):
 
 class AuthorUpdate(generic.UpdateView):
     model = models.Author
-    fields = ['name', 'series', 'description', 'author_img']
+    fields = ['name', 'series', 'description']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

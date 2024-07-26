@@ -87,9 +87,9 @@
     <button><a href="/author-list/"> ⭠ Назад к списку авторов</a></button>
     <hr>
     <h1>ОБ АВТОРЕ</h1>
-    {% if object.author_img %}
+    {% comment %} {% if object.author_img %}
         <img src="{{ object.author_img.url }}" height="200px">
-    {% endif %}
+    {% endif %} {% endcomment %}
     <ul>
         <li><b>id</b>: {{object.id}}</li><br>
         <li><b>имя</b>: {{object.name}}</li><br>
