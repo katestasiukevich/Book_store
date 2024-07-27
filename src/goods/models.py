@@ -1,7 +1,6 @@
 from django.db import models
-from PIL import Image
 
-from refs.models import *
+from refs.models import Genre, Series, Publisher, Author
 
 
 # Create your models here.
@@ -26,13 +25,9 @@ class Book(models.Model):
         related_name="publisher",
         verbose_name="Издательство",
         null=True,
-        blank=True
+        blank=True,
     )
-    price = models.DecimalField(
-        verbose_name="Цена",
-        decimal_places=2,
-        max_digits=7
-    )
+    price = models.DecimalField(verbose_name="Цена", decimal_places=2, max_digits=7)
 
     def __str__(self):
         return f"{self.title}"
