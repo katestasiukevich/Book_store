@@ -21,6 +21,7 @@ from django.conf import settings
 
 from refs import views as ref_views
 from goods import views as goods_views
+from goods import forms
 
 urlpatterns = [
     path('admin/', admin.site.urls),

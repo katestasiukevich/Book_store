@@ -16,9 +16,7 @@ class Book(models.Model):
     series = models.ForeignKey(
         Series, on_delete=models.PROTECT, related_name="series", verbose_name="Серия"
     )
-    genre = models.ForeignKey(
-        Genre, on_delete=models.PROTECT, related_name="genre", verbose_name="Жанр"
-    )
+    genre = models.ManyToManyField(Genre, related_name="genre", verbose_name="Жанр")
     publisher = models.ForeignKey(
         Publisher,
         on_delete=models.PROTECT,
