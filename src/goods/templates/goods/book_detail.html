@@ -24,7 +24,13 @@
             <li><b>id</b>: {{object.id}}</li><br>
             <li><b>Название</b>: {{object.title}}</li><br>
             <li><b>Автор</b>: {{object.author.name}}</li><br>
-            <li><b>Жанр</b>: {{object.genre.name}}</li><br>
+            <li><b>Жанр</b>: 
+                {% for obj in object.genre.values%}
+                    <ul>
+                        <li>{{obj.name}}</li>
+                    </ul>
+                {% endfor %}
+            </li><br>
             <li><b>Серия</b>: <a href="/series-detail/{{object.series.id}}/" class="no_buton_link">{{object.series.name}}</a></li>
             <li><b>Издательство</b>: {{object.publisher.name}}</li><br>
             <li><b>Цена</b>: {{object.price}}</li><br> 
