@@ -12,7 +12,7 @@ class BookList(generic_views.ListView):
 
 class BookCreate(generic_views.CreateView):
     model = models.Book
-    fields = ["title", "author", "series", "genre", "publisher", "cover", "price"]
+    fields = ["title", "author", "series", "genre", "publisher", "cover", "description", "price"]
     form = forms.BookCreateForm
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -25,7 +25,7 @@ class BookDetail(generic_views.DetailView):
 
 class BookUpdate(generic_views.UpdateView):
     model = models.Book
-    fields = ["title", "author", "series", "genre", "publisher", "cover", "price"]
+    fields = ["title", "author", "series", "genre", "publisher", "cover", "description", "price"]
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
