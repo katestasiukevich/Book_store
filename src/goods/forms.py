@@ -12,7 +12,8 @@ class BookCreateForm(forms.ModelForm):
             "author",
             "series",
             "genre",
-            "publisher", 
+            "publisher",
+            "description",
             "price"
         ]
         widget = {"genre": forms.ModelMultipleChoiceField(queryset=Genre.objects.all())}

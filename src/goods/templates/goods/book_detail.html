@@ -33,6 +33,13 @@
             </li><br>
             <li><b>Серия</b>: <a href="/series-detail/{{object.series.id}}/" class="no_buton_link">{{object.series.name}}</a></li>
             <li><b>Издательство</b>: {{object.publisher.name}}</li><br>
+            <li><b>Описание</b>:
+                {% if object.description %}
+                    {{object.description}}
+                {% else %}
+                    Нет описания.
+                {% endif %}
+            </li><br>
             <li><b>Цена</b>: {{object.price}}</li><br> 
         </ul>
         <button><a href='/book-update/{{object.id}}/'>Редактировать</a></button>
