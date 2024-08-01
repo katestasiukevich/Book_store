@@ -25,6 +25,7 @@ class Book(models.Model):
         null=True,
         blank=True,
     )
+    description = models.TextField(verbose_name="Описание", blank=True, null=True)
     price = models.DecimalField(verbose_name="Цена", decimal_places=2, max_digits=7)
 
     def __str__(self):
