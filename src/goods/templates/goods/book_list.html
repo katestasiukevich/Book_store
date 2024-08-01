@@ -85,7 +85,13 @@
                 <td>{{obj.id}}</td>
                 <td>{{obj.title}}</td>
                 <td>{{obj.author}}</td>
-                <td>{{obj.genre}}</td>
+                <td>
+                    {% for obj in object.genre.values%}
+                    <ul>
+                        <li>{{obj.name}}</li>
+                    </ul>
+                    {% endfor %}
+                </td>
                 <td>{{obj.price}}</td>
                 <td class="link">
                     <button><a href='/book-detail/{{obj.id}}/'>Посмотреть</a></button>
