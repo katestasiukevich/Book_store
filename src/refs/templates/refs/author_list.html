@@ -1,86 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список авторов</title>
-    <style>
-        a {
-            text-decoration: none;
-            /* Отменяем подчеркивание у ссылки */
-            color: rgb(253, 251, 251);
-        }
-
-        button {
-            border: 0;
-            /*ubrali ramku vokrug*/
-            border-radius: 7px;
-            /*zakruglili kraya*/
-            background-color: #048075;
-            /*cvet fona knopki*/
-            color: #fff;
-            /*cvet texta*/
-            padding: 5px 10px;
-            /*vnutrennie otstupi*/
-            font-size: 16px;
-            /*razmer texta*/
-            text-transform: uppercase;
-            /*zaglavnie bukvi*/
-            font-weight: 300;
-            /*tolschina bukv*/
-            font-family: Roboto;
-            /*shrift*/
-            cursor: pointer;
-            /*izmenili kursor na palchik*/
-        }
-
-        button:hover {
-            background-color: #07c9b9;
-        }
-
-        fieldset {
-            display: block;
-            margin-left: 0px;
-            margin-right: 440px;
-            padding-top: 1em;
-            padding-left: 0.75em;
-            padding-right: 0.75em;
-            padding-bottom: 0.625em;
-            background-color: #f7f7f74b;
-            border-style: hidden;
-        }
-
-        table{
-            border-style: hidden;
-        }
-        td {
-            border-style: hidden;
-            border-bottom: #000;
-            border-bottom-style: dotted;
-            border-width: 1px;
-            color: #000;
-            font-size: 112%;
-        }
-        th {
-            color:#048075;
-            font-size: 120%;
-            border-style: hidden;
-
-        }
-    </style>
-</head>
-<header>
-    <button><a href="/book-list/">Книги</a></button>
-    <button><a href="/author-list/">Авторы</a></button>
-    <button><a href="/genre-list/">Жанры</a></button>
-    <button><a href="/series-list/">Серии книг</a></button>
-    <button><a href="/publisher-list/">Издательства</a></button>
-</header>
-<hr>
-<body>
-    <button><a href='/author-create/'>Добавить автора</a></button><br>
-    <fieldset>
+{% extends "base.html" %}
+{% block MAIN_CONTENT %}
+<a href="{% url "references:author-create" %}"><button>Добавить автора</button></a><br>
         <table border="1">
             <tr>
                 <th>ID</th>
@@ -92,18 +12,15 @@
                 <td>{{obj.id}}</td>
                 <td>{{obj.name}}</td>
                 <td class="link">
-                    <button><a href='/author-detail/{{obj.id}}/'>Посмотреть</a></button>
+                    <a href="{% url "references:author-detail" obj.id %}"><button>Посмотреть</button></a>
                 </td>
                 <td class="link">
-                    <button><a href='/author-update/{{obj.id}}/'>Редактировать</a></button>
+                    <a href="{% url "references:author-update" obj.id %}"><button>Редактировать</button></a>
                 </td>
                 <td class="link">
-                    <button><a href='/author-delete/{{obj.id}}/'>Удалить</a></button>
+                    <a href="{% url "references:author-delete" obj.id %}"><button>Удалить</button></a>
                 </td>
             </tr>
             {% endfor %}
         </table>
-    </fieldset>
-</body>
-
-</html>
+{% endblock MAIN_CONTENT %}

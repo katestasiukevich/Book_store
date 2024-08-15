@@ -1,25 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ object.title }}</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block MAIN_CONTENT %}
     {% csrf_token %}
-    <header>
-        <button><a href="/book-list/">Книги</a></button>
-        <button><a href="/author-list/">Авторы</a></button>
-        <button><a href="/genre-list/">Жанры</a></button>
-        <button><a href="/series-list/">Серии книг</a></button>
-        <button><a href="/publisher-list/">Издательства</a></button>
-    </header>
-    <hr>
-    <body>
-        <button><a href="/book-list/"> ⭠ Назад к списку книг</a></button>
-        <hr>
-        <h1>О КНИГЕ</h1>
-        <img src="{{ object.cover.url }}">
+    <a href="{% url "goods:book-list" %}"> ⭠ Назад к списку книг</a>
+    <h1 class="mt-5">О КНИГЕ</h1>
+    <img src="{{ object.cover.url }}">
         <ul>
             <li><b>id</b>: {{object.id}}</li><br>
             <li><b>Название</b>: {{object.title}}</li><br>
@@ -31,7 +15,7 @@
                     </ul>
                 {% endfor %}
             </li><br>
-            <li><b>Серия</b>: <a href="/series-detail/{{object.series.id}}/" class="no_buton_link">{{object.series.name}}</a></li>
+            <li><b>Серия</b>: <a href="{% url "references:series-detail" object.series.id %}" class="no_buton_link">{{object.series.name}}</a></li>
             <li><b>Издательство</b>: {{object.publisher.name}}</li><br>
             <li><b>Описание</b>:
                 {% if object.description %}
@@ -40,9 +24,8 @@
                     Нет описания.
                 {% endif %}
             </li><br>
-            <li><b>Цена</b>: {{object.price}}</li><br> 
+            <li><b>Цена</b>: {{object.price}} BYN</li><br> 
         </ul>
-        <button><a href='/book-update/{{object.id}}/'>Редактировать</a></button>
-        <button><a href='/book-delete/{{object.id}}/'>Удалить</a></button>
-</body>
-</html>
+        <a href="{% url "goods:book-update" object.id %}"><button>Редактировать</button></a>
+        <a href="{% url "goods:book-delete" object.id %}"><button>Удалить</button></a>
+{% endblock MAIN_CONTENT %}
