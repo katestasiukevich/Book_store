@@ -1,111 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список книг</title>
-    <style>
-        a {
-            text-decoration: none;
-            /* Отменяем подчеркивание у ссылки */
-            color: rgb(253, 251, 251);
-        }
+{% extends "base.html" %}
+{% block MAIN_CONTENT %}
+<a href="{% url "goods:book-create" %}"><button class="btn btn-warning">Добавить книгу</button></a><br>
 
-        button {
-            border: 0;
-            /*ubrali ramku vokrug*/
-            border-radius: 7px;
-            /*zakruglili kraya*/
-            background-color: #048075;
-            /*cvet fona knopki*/
-            color: #fff;
-            /*cvet texta*/
-            padding: 5px 10px;
-            /*vnutrennie otstupi*/
-            font-size: 16px;
-            /*razmer texta*/
-            text-transform: uppercase;
-            /*zaglavnie bukvi*/
-            font-weight: 300;
-            /*tolschina bukv*/
-            font-family: Roboto;
-            /*shrift*/
-            cursor: pointer;
-            /*izmenili kursor na palchik*/
-        }
-
-        button:hover {
-            background-color: #07c9b9;
-        }
-
-        table{
-            border-style: hidden;
-        }
-        td {
-            border-style: hidden;
-            border-bottom: #000;
-            border-bottom-style: dotted;
-            border-width: 1px;
-            color: #000;
-            font-size: 112%;
-        }
-        th {
-            color:#048075;
-            font-size: 120%;
-            border-style: hidden;
-
-        }
-    </style>
-</head>
-<body>
-<header>
-    <button><a href="/book-list/">Книги</a></button>
-    <button><a href="/author-list/">Авторы</a></button>
-    <button><a href="/genre-list/">Жанры</a></button>
-    <button><a href="/series-list/">Серии книг</a></button>
-    <button><a href="/publisher-list/">Издательства</a></button>
-</header>
-<hr>
-<body>
-    <button><a href='/book-create/'>Добавить книгу</a></button><br>
-
-        <table border="1">
-            <tr>
-                <th>Обложка</th>
-                <th>ID</th>
-                <th>Название</th>
-                <th>Автор</th>
-                <th>Жанр</th>
-                <th>Цена</th>
-                <th colspan="3">Действия</th>
-            </tr>
-            {% for obj in object_list %}
-            <tr>
-                <td><img src="{{obj.cover.url}}" width=70px></td>
-                <td>{{obj.id}}</td>
-                <td>{{obj.title}}</td>
-                <td>{{obj.author}}</td>
-                <td>
-                    {% for gen in obj.genre.values%}
-                    <ul>
-                        <li>{{gen.name}}</li>
-                    </ul>
-                    {% endfor %}
-                </td>
-                <td>{{obj.price}}</td>
-                <td class="link">
-                    <button><a href='/book-detail/{{obj.id}}/'>Посмотреть</a></button>
-                </td>
-                <td class="link">
-                    <button><a href='/book-update/{{obj.id}}/'>Редактировать</a></button>
-                </td>
-                <td class="link">
-                    <button><a href='/book-delete/{{obj.id}}/'>Удалить</a></button>
-                </td>
-            </tr>
+<table class="table table-hover" border="1">
+    <tr>
+        <th>Обложка</th>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Жанр</th>
+        <th>Цена</th>
+        <th colspan="3">Действия</th>
+    </tr>
+    {% for obj in object_list %}
+    <tr>
+        <td><img src="{{obj.cover.url}}" width=70px></td>
+        <td>{{obj.id}}</td>
+        <td>{{obj.title}}</td>
+        <td>{{obj.author}}</td>
+        <td>
+            {% for gen in obj.genre.values%}
+            <ul>
+                <li>{{gen.name}}</li>
+            </ul>
             {% endfor %}
-        </table>
-
-    
-</body>
-</html>
+        </td>
+        <td>{{obj.price}} BYN</td>
+        <td class="link">
+            <a href="{% url "goods:book-detail" obj.id %}"><button class="btn btn-success"><i class="bi bi-eye"></i></button></a>
+        </td>
+        <td class="link">
+            <a href="{% url "goods:book-update" obj.id %}"><button class="btn btn-warning"><i class="bi bi-pencil-square"></i></button></a>
+        </td>
+        <td class="link">
+            <a href="{% url "goods:book-delete" obj.id %}"><button class="btn btn-danger"><i class="bi bi-trash"></i></button></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<div class="container_text-center">
+    {% for obj in object_list %}
+    <div class="cg">
+        <div class="card">
+            <div class="img-container">
+                <img src="{{obj.cover.url}}" class="card-img-top" alt="...">
+            </div>
+          <div class="card-body">
+            <h5 class="card-title">{{obj.title}}</h5>
+            <p class="card-text">
+                {% if object.description %}
+                {{object.description}}
+            {% else %}
+                Нет описания.
+            {% endif %}
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url "goods:book-detail" obj.id %}"><button class="btn btn-outline-success" type="submit">Подробнее</button></a>
+            <button class="btn btn-outline-success" type="submit"><i class="bi bi-cart4"></i></button>
+            {{obj.price}} BYN
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+{% endblock MAIN_CONTENT %}

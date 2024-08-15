@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse_lazy
 from refs.models import Genre, Series, Publisher, Author
 
 
@@ -32,4 +32,5 @@ class Book(models.Model):
         return f"{self.title}"
 
     def get_absolute_url(self):
-        return f"/book-detail/{self.pk}"
+        return reverse_lazy("goods:book-detail", kwargs={"pk": self.pk})
+    

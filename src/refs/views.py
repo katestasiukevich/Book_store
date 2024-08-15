@@ -1,10 +1,6 @@
-from multiprocessing import context
-import select
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
 from django.views import generic
-
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models
 
 
@@ -18,7 +14,7 @@ class AuthorDetail(generic.DetailView):
     model = models.Author
 
 
-class AuthorCreate(generic.CreateView):
+class AuthorCreate(LoginRequiredMixin, generic.CreateView):
     model = models.Author
     fields = ['name', 'series', 'description']
 
@@ -28,7 +24,7 @@ class AuthorCreate(generic.CreateView):
         return context
 
 
-class AuthorUpdate(generic.UpdateView):
+class AuthorUpdate(LoginRequiredMixin, generic.UpdateView):
     model = models.Author
     fields = ['name', 'series', 'description']
 
@@ -38,10 +34,9 @@ class AuthorUpdate(generic.UpdateView):
         return context
 
 
-class AuthorDelete(generic.DeleteView):
+class AuthorDelete(LoginRequiredMixin, generic.DeleteView):
     model = models.Author
-    success_url = "/author-list/"
-
+    success_url = reverse_lazy("references:author-list")
 #Genre
 class GenreList(generic.ListView):
     model = models.Genre
@@ -51,7 +46,7 @@ class GenreDetail(generic.DetailView):
     model = models.Genre
 
 
-class GenreCreate(generic.CreateView):
+class GenreCreate(LoginRequiredMixin, generic.CreateView):
     model = models.Genre
     fields = ['name', 'description']
 
@@ -61,7 +56,7 @@ class GenreCreate(generic.CreateView):
         return context
 
 
-class GenreUpdate(generic.UpdateView):
+class GenreUpdate(LoginRequiredMixin, generic.UpdateView):
     model = models.Genre
     fields = ['name', 'description']
 
@@ -71,9 +66,9 @@ class GenreUpdate(generic.UpdateView):
         return context
 
 
-class GenreDelete(generic.DeleteView):
+class GenreDelete(LoginRequiredMixin, generic.DeleteView):
     model = models.Genre
-    success_url = "/genre-list/"
+    success_url = reverse_lazy("references:genre-list")
 
 #series
 class SeriesList(generic.ListView):
@@ -84,7 +79,7 @@ class SeriesDetail(generic.DetailView):
     model = models.Series
 
 
-class SeriesCreate(generic.CreateView):
+class SeriesCreate(LoginRequiredMixin, generic.CreateView):
     model = models.Series
     fields = ['name', 'description']
 
@@ -94,7 +89,7 @@ class SeriesCreate(generic.CreateView):
         return context
 
 
-class SeriesUpdate(generic.UpdateView):
+class SeriesUpdate(LoginRequiredMixin, generic.UpdateView):
     model = models.Series
     fields = ['name', 'description']
 
@@ -104,9 +99,9 @@ class SeriesUpdate(generic.UpdateView):
         return context
 
 
-class SeriesDelete(generic.DeleteView):
+class SeriesDelete(LoginRequiredMixin, generic.DeleteView):
     model = models.Series
-    success_url = "/series-list/"
+    success_url = reverse_lazy("references:series-list")
 
 #publishers
 class PublisherList(generic.ListView):
@@ -117,7 +112,7 @@ class PublisherDetail(generic.DetailView):
     model = models.Publisher
 
 
-class PublisherCreate(generic.CreateView):
+class PublisherCreate(LoginRequiredMixin, generic.CreateView):
     model = models.Publisher
     fields = ['name', 'description']
 
@@ -127,7 +122,7 @@ class PublisherCreate(generic.CreateView):
         return context
 
 
-class PublisherUpdate(generic.UpdateView):
+class PublisherUpdate(LoginRequiredMixin, generic.UpdateView):
     model = models.Publisher
     fields = ['name', 'description']
 
@@ -137,6 +132,6 @@ class PublisherUpdate(generic.UpdateView):
         return context
 
 
-class PublisherDelete(generic.DeleteView):
+class PublisherDelete(LoginRequiredMixin, generic.DeleteView):
     model = models.Publisher
-    success_url = "/publisher-list/"
+    success_url = reverse_lazy("references:publisher-list")

@@ -1,24 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Удаление книги {{ object.title }}</title>
-</head>
-<header>
-    <button><a href="/book-list/">Книги</a></button>
-    <button><a href="/author-list/">Авторы</a></button>
-    <button><a href="/genre-list/">Жанры</a></button>
-    <button><a href="/series-list/">Серии книг</a></button>
-    <button><a href="/publisher-list/">Издательства</a></button>
-</header>
-<hr>
-<body>
-    <h1>Вы действительно хотите удалить "{{ object.title }}" ({{ object.author.name }})?</h1>
-    <form action="" method="post" required >
-        {% csrf_token %}
-        <button type="submit">Удалить</button>
-        <button type="button"><a href="/book-detail/{{object.id}}">Отменить</a></button>
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+{% block MAIN_CONTENT %}
+<h1 class="mt-5">Вы действительно хотите удалить "{{ object.title }}" ({{ object.author.name }})?</h1>
+<form action="" method="post" required >
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+    <a href="{% url "goods:book-detail" object.id %}"><button type="button">Отменить</button></a>
+</form>
+{% endblock MAIN_CONTENT %}
