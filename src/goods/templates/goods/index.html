@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block MAIN_CONTENT %}
+<div class="container_text-center">
+    {% for obj in object_list %}
+    <div class="cg">
+        <div class="card">
+            <div class="img-container">
+                <img src="{{obj.cover.url}}" class="card-img-top" alt="...">
+            </div>
+          <div class="card-body">
+            <h5 class="card-title">{{obj.title}}</h5>
+            <p class="card-text">
+                {% if object.description %}
+                {{object.description}}
+            {% else %}
+                Нет описания.
+            {% endif %}
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url "goods:book-detail" obj.id %}"><button class="btn btn-outline-success" type="submit">Подробнее</button></a>
+            <button class="btn btn-outline-success" type="submit"><i class="bi bi-cart4"></i></button>
+            {{obj.price}} BYN
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+{% endblock MAIN_CONTENT %}

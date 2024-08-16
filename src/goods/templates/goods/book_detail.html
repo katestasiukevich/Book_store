@@ -26,6 +26,10 @@
             </li><br>
             <li><b>Цена</b>: {{object.price}} BYN</li><br> 
         </ul>
-        <a href="{% url "goods:book-update" object.id %}"><button>Редактировать</button></a>
-        <a href="{% url "goods:book-delete" object.id %}"><button>Удалить</button></a>
+        {% if  perms.goods.change_book %}
+            <a href="{% url "goods:book-update" object.id %}"><button>Редактировать</button></a>
+        {% endif %}
+        {% if  perms.goods.delete_book %}                
+            <a href="{% url "goods:book-delete" object.id %}"><button>Удалить</button></a>
+        {% endif %}
 {% endblock MAIN_CONTENT %}

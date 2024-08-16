@@ -1,7 +1,4 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login, views as auth_views
-from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.contrib.auth import views as auth_views
 
 # Create your views here.
 # def login_view(request):

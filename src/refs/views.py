@@ -1,20 +1,24 @@
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from . import models
 
 
 # Create your views here.
 #authors
-class AuthorList(generic.ListView):
+class AuthorList(PermissionRequiredMixin, generic.ListView):
+    permission_required = ()
     model = models.Author
 
 
-class AuthorDetail(generic.DetailView):
+class AuthorDetail(PermissionRequiredMixin, generic.DetailView):
+    permission_required = ()
     model = models.Author
 
 
-class AuthorCreate(LoginRequiredMixin, generic.CreateView):
+class AuthorCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = ("refs.add_author")
     model = models.Author
     fields = ['name', 'series', 'description']
 
@@ -24,7 +28,8 @@ class AuthorCreate(LoginRequiredMixin, generic.CreateView):
         return context
 
 
-class AuthorUpdate(LoginRequiredMixin, generic.UpdateView):
+class AuthorUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "refs.change_author"
     model = models.Author
     fields = ['name', 'series', 'description']
 
@@ -34,19 +39,23 @@ class AuthorUpdate(LoginRequiredMixin, generic.UpdateView):
         return context
 
 
-class AuthorDelete(LoginRequiredMixin, generic.DeleteView):
+class AuthorDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "refs.delete_author"
     model = models.Author
     success_url = reverse_lazy("references:author-list")
 #Genre
-class GenreList(generic.ListView):
+class GenreList(PermissionRequiredMixin, generic.ListView):
+    permission_required = ()
     model = models.Genre
 
 
-class GenreDetail(generic.DetailView):
+class GenreDetail(PermissionRequiredMixin, generic.DetailView):
+    permission_required = ()
     model = models.Genre
 
 
-class GenreCreate(LoginRequiredMixin, generic.CreateView):
+class GenreCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = ("refs.add_genre")
     model = models.Genre
     fields = ['name', 'description']
 
@@ -56,7 +65,8 @@ class GenreCreate(LoginRequiredMixin, generic.CreateView):
         return context
 
 
-class GenreUpdate(LoginRequiredMixin, generic.UpdateView):
+class GenreUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "refs.change_genre"
     model = models.Genre
     fields = ['name', 'description']
 
@@ -66,20 +76,24 @@ class GenreUpdate(LoginRequiredMixin, generic.UpdateView):
         return context
 
 
-class GenreDelete(LoginRequiredMixin, generic.DeleteView):
+class GenreDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "goods.delete_genre"
     model = models.Genre
     success_url = reverse_lazy("references:genre-list")
 
 #series
-class SeriesList(generic.ListView):
+class SeriesList(PermissionRequiredMixin, generic.ListView):
+    permission_required = ()
     model = models.Series
 
 
-class SeriesDetail(generic.DetailView):
+class SeriesDetail(PermissionRequiredMixin, generic.DetailView):
+    permission_required = ()
     model = models.Series
 
 
-class SeriesCreate(LoginRequiredMixin, generic.CreateView):
+class SeriesCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = ("refs.add_series")
     model = models.Series
     fields = ['name', 'description']
 
@@ -89,7 +103,8 @@ class SeriesCreate(LoginRequiredMixin, generic.CreateView):
         return context
 
 
-class SeriesUpdate(LoginRequiredMixin, generic.UpdateView):
+class SeriesUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "refs.change_series"
     model = models.Series
     fields = ['name', 'description']
 
@@ -99,20 +114,24 @@ class SeriesUpdate(LoginRequiredMixin, generic.UpdateView):
         return context
 
 
-class SeriesDelete(LoginRequiredMixin, generic.DeleteView):
+class SeriesDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "refs.delete_series"
     model = models.Series
     success_url = reverse_lazy("references:series-list")
 
 #publishers
-class PublisherList(generic.ListView):
+class PublisherList(PermissionRequiredMixin, generic.ListView):
+    permission_required = ()
     model = models.Publisher
 
 
-class PublisherDetail(generic.DetailView):
+class PublisherDetail(PermissionRequiredMixin, generic.DetailView):
+    permission_required = ()
     model = models.Publisher
 
 
-class PublisherCreate(LoginRequiredMixin, generic.CreateView):
+class PublisherCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = ("refs.add_publisher")
     model = models.Publisher
     fields = ['name', 'description']
 
@@ -122,7 +141,8 @@ class PublisherCreate(LoginRequiredMixin, generic.CreateView):
         return context
 
 
-class PublisherUpdate(LoginRequiredMixin, generic.UpdateView):
+class PublisherUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "refs.change_publisher"
     model = models.Publisher
     fields = ['name', 'description']
 
@@ -132,6 +152,7 @@ class PublisherUpdate(LoginRequiredMixin, generic.UpdateView):
         return context
 
 
-class PublisherDelete(LoginRequiredMixin, generic.DeleteView):
+class PublisherDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "refs.delete_publisher"
     model = models.Publisher
     success_url = reverse_lazy("references:publisher-list")

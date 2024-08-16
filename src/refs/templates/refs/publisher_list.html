@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block MAIN_CONTENT %}
+{% if  perms.refs.add_publisher %}
     <a href="{% url "references:publisher-create" %}"><button>Добавить издательство</button></a><br>
+    {% endif %}
         <table border="1">
             <tr>
                 <th>ID</th>
@@ -14,12 +16,16 @@
                 <td class="link">
                     <a href="{% url "references:publisher-detail" obj.id %}"><button>Посмотреть</button></a>
                 </td>
+                {% if  perms.refs.change_publisher %}
                 <td class="link">
                     <a href="{% url "references:publisher-update" obj.id %}"><button>Редактировать</button></a>
                 </td>
+                {% endif %}
+                {% if  perms.refs.delete_publisher %}
                 <td class="link">
                     <a href="{% url "references:publisher-delete" obj.id %}"><button>Удалить</button></a>
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>

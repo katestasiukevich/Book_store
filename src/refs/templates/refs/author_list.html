@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block MAIN_CONTENT %}
+{% if  perms.refs.add_author %}
 <a href="{% url "references:author-create" %}"><button>Добавить автора</button></a><br>
+{% endif %}
         <table border="1">
             <tr>
                 <th>ID</th>
@@ -14,12 +16,16 @@
                 <td class="link">
                     <a href="{% url "references:author-detail" obj.id %}"><button>Посмотреть</button></a>
                 </td>
+                {% if  perms.refs.change_author %}
                 <td class="link">
                     <a href="{% url "references:author-update" obj.id %}"><button>Редактировать</button></a>
                 </td>
+                {% endif %}
+                {% if  perms.refs.delete_author %}
                 <td class="link">
                     <a href="{% url "references:author-delete" obj.id %}"><button>Удалить</button></a>
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
