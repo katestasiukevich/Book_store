@@ -9,6 +9,10 @@
         <li><b>описание</b>: {{object.description}}</li><br>
         <li><b>серия</b>: <a href="{% url "references:series-detail" object.series.id %}" class="no_buton_link">{{object.series.name}}</a></li>
     </ul>
+    {% if  perms.refs.change_author %}
     <button><a href="{% url "references:author-update" object.id %}">Редактировать</a></button>
+    {% endif %}
+    {% if  perms.refs.delete_author %}
     <button><a href="{% url "references:author-delete" object.id %}">Удалить</a></button>
+    {% endif %}
 {% endblock MAIN_CONTENT %}

@@ -1,7 +1,9 @@
 {% extends "base.html" %}
-{% block MAIN_CONTENT %}
-<a href="{% url "goods:book-create" %}"><button class="btn btn-warning">Добавить книгу</button></a><br>
 
+{% block MAIN_CONTENT %}
+{% if  perms.goods.add_book %}
+<a href="{% url "goods:book-create" %}"><button class="btn btn-warning">Добавить книгу</button></a><br>
+{% endif %}
 <table class="table table-hover" border="1">
     <tr>
         <th>Обложка</th>
@@ -29,39 +31,18 @@
         <td class="link">
             <a href="{% url "goods:book-detail" obj.id %}"><button class="btn btn-success"><i class="bi bi-eye"></i></button></a>
         </td>
-        <td class="link">
-            <a href="{% url "goods:book-update" obj.id %}"><button class="btn btn-warning"><i class="bi bi-pencil-square"></i></button></a>
-        </td>
+        {% if  perms.goods.change_book %}
+            <td class="link">
+                <a href="{% url "goods:book-update" obj.id %}"><button class="btn btn-warning"><i class="bi bi-pencil-square"></i></button></a>
+            </td>
+        {% endif %}
+        {% if  perms.goods.delete_book %}
         <td class="link">
             <a href="{% url "goods:book-delete" obj.id %}"><button class="btn btn-danger"><i class="bi bi-trash"></i></button></a>
         </td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>
-<div class="container_text-center">
-    {% for obj in object_list %}
-    <div class="cg">
-        <div class="card">
-            <div class="img-container">
-                <img src="{{obj.cover.url}}" class="card-img-top" alt="...">
-            </div>
-          <div class="card-body">
-            <h5 class="card-title">{{obj.title}}</h5>
-            <p class="card-text">
-                {% if object.description %}
-                {{object.description}}
-            {% else %}
-                Нет описания.
-            {% endif %}
-            </p>
-          </div>
-          <div class="card-footer">
-            <a href="{% url "goods:book-detail" obj.id %}"><button class="btn btn-outline-success" type="submit">Подробнее</button></a>
-            <button class="btn btn-outline-success" type="submit"><i class="bi bi-cart4"></i></button>
-            {{obj.price}} BYN
-          </div>
-        </div>
-      </div>
-    {% endfor %}
-</div>
+{{user.get_group_permissions}}
 {% endblock MAIN_CONTENT %}

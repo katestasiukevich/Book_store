@@ -20,15 +20,15 @@ from django.conf.urls.static import static
 from django.conf import settings
 from goods import views as goods_views
 
-
+app_name = "proj"
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('s-admin/', admin.site.urls),
     path('refs/', include("refs.urls", namespace="references")),
     path('goods/', include("goods.urls", namespace="goods")),
     path('accounts/', include("acc.urls", namespace="accounts")),
 
-    path('contact-us/', goods_views.contact_form),
-    path('message-sent/', goods_views.message_sent),
+    path('contact-us/', goods_views.contact_form, name="contact-us"),
+    path('message-sent/', goods_views.message_sent, name="message-sent"),
 ]
 
 if settings.DEBUG:
