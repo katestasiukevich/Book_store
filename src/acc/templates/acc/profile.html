@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block MAIN_CONTENT %}
+{% csrf_token %}
+<h1>ПРОФИЛЬ {{user.username}}</h1>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>ИМЯ</b>: {{object.first_name}}</li><br>
+            <li class="list-group-item"><b>ФАМИЛИЯ</b>: {{object.last_name}}</li><br>
+            <li class="list-group-item"><b>ГОРОД</b>: {{object.city}}</li><br>
+            <li class="list-group-item"><b>СТРАНА</b>: {{object.country}}</li><br>
+            <li class="list-group-item"><b>EMAIL</b>: {{object.email}}</li><br>
+            <li class="list-group-item"><b>ТЕЛЕФОН</b>: +375({{object.code}}){{object.phone}} </li><br>
+            <li class="list-group-item"><b>АДРЕС 1</b>: {{object.address1}}</li><br>
+            <li class="list-group-item"><b>АДРЕС 2</b>: {{object.address2}}</li><br>
+        </ul>
+        {% comment %} <a href="{% url "accounts:edit"%}">edit</a> {% endcomment %}
+{% endblock MAIN_CONTENT %}

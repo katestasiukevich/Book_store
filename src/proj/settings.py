@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
 
 from . import local_settings
 
@@ -47,6 +48,7 @@ PROJ_APPS = [
     'refs',
     'goods',
     'acc',
+    'orders',
 ]
 
 INSTALLED_APPS += PROJ_APPS
@@ -66,6 +68,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'proj.urls'
+
+LOGIN_REDIRECT_URL = reverse_lazy('goods:home')
+LOGIN_URL = reverse_lazy('login')
+LOGOUT_URL = reverse_lazy('logout')
 
 TEMPLATES = [
     {

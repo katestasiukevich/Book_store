@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static "/bs/css/bootstrap.min.css" %}" rel="stylesheet" >
     <link href="{% static "/bsi/font/bootstrap-icons.min.css" %}" rel="stylesheet" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {% block js %}{% endblock js %}
+     
     <title>{{ object.title }}</title>
     <style>
         .bd-placeholder-img {
@@ -135,10 +138,10 @@
         }
         span {
           margin: 5px;
+          color: #ffffff;
         }
 
       </style>
-    
       <link href="{% static "/custom_css/sticky-footer-navbar.css" %}" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
@@ -203,20 +206,27 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url "goods:home" %}">Главная</a>
+                  <a aria-current="page" href="{% url "goods:home" %}" class="{% if request.path == "/goods/home/" %} nav-link active {% else %} nav-link {% endif %}" >Главная</a>
                 </li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "goods:book-list" %}">Книги</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "references:author-list" %}">Авторы</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "references:genre-list" %}">Жанры</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "references:series-list" %}">Серии книг</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "references:publisher-list" %}">Издательства</a></li>
+                    <li class="nav-item"><a href="{% url "goods:book-list" %}" class="{% if request.path == "/goods/book-list/" %} nav-link active {% else %} nav-link {% endif %}">Книги</a></li>
+                    <li class="nav-item"><a href="{% url "references:author-list" %}" class="{% if request.path == "/refs/author-list/" %} nav-link active {% else %} nav-link {% endif %}">Авторы</a></li>
+                    <li class="nav-item"><a href="{% url "references:genre-list" %}" class="{% if request.path == "/refs/genre-list/" %} nav-link active {% else %} nav-link {% endif %}">Жанры</a></li>
+                    <li class="nav-item"><a href="{% url "references:series-list" %}" class="{% if request.path == "/refs/series-list/" %} nav-link active {% else %} nav-link {% endif %}">Серии книг</a></li>
+                    <li class="nav-item"><a href="{% url "references:publisher-list" %}" class="{% if request.path == "/refs/publisher-list/" %} nav-link active {% else %} nav-link {% endif %}">Издательства</a></li>
                 </li>
               </ul>
               <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Поиск</button>
+                <button class="btn btn-outline-warning" type="submit">Поиск</button>
               </form>
-              <a href="{% url "accounts:login" %}"><span>{{ user }}</span><button>Войти</button></a>
+              <span class="user">
+                {% if request.user.is_authenticated %}
+                    Привет, <a href="{% url "accounts:profile" %}"><button class="btn btn-warning"> {{ request.user.first_name }} </button></a>
+                    <a href="{% url "logout" %}"><button class="btn btn-outline-warning">Выйти</button></a>
+                {% else %}
+                    <a href="{% url "login" %}"><button class="btn btn-outline-warning">Войти</button></a>
+                {% endif %}
+            </span>
             </div>
           </div>
         </nav>
