@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block js %}
+<script>
+	$(document).ready(function() {
+		$('.down').click(function () {
+			var $input = $(this).parent().find('input');
+			var count = parseInt($input.val()) - 1;
+			count = count < 1 ? 1 : count;
+			$input.val(count);
+			$input.change();
+			return false;
+		});
+		$('.up').click(function () {
+			var $input = $(this).parent().find('input');
+			$input.val(parseInt($input.val()) + 1);
+			$input.change();
+			return false;
+		});
+	});
+</script>
+<style>
+
+    .amount span {
+        display:inline-block;
+        width:20px;
+        height:20px;
+        background:#ededed;
+        cursor:pointer;
+        text-align:center;
+    }
+    .amount span:hover {
+        background:#dfdfdf;
+    }
+    .amount input {
+        width:30px;
+        height: 32px;
+        vertical-align:middle;
+        text-align:center;
+        margin-left: 3%;
+        margin-right: -4%;
+    }
+    </style>
+    {% endblock js %}
+{% block MAIN_CONTENT %}
+<h1>Корзина пользователя {{user.username}}:</h1>
+{% if cart %}
+<ul>
+    <li>Дата создания: {{ cart.created }}</li>
+    <li>Дата редактирования: {{ cart.updated }}</li>
+</ul>
+<h2>Товары в корзине:</h2>
+<form action="{% url "orders:evaluate-cart" %}" method="post">
+    {% csrf_token %}
+    <table class="table table-hover" border="1">
+        <thead>
+            <th>Обложка</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Сумма</th>
+        </thead>
+        {% for item in cart.items.all %}
+        <tr>
+            <td><img src="{{item.item.cover.url}}" width=70px></td>
+            <td>"{{item.item.title}}"{{item.item.author}}</td>
+            <td>{{item.item.price}}</td>
+            <td>
+                <div class="amount">
+                    <span class="down"><button class="btn btn-warning btn-sm"><i class="bi bi-dash"></i></button></span>
+                    <input type="text" name="quantity_{{item.pk}}" step="1" value="{{item.quantity}}"min="0">
+                    <span class="up"><button class="btn btn-warning btn-sm"><i class="bi bi-plus"></i></button></span>
+                </div>
+            </td>
+            <td>{{item.total_price_per_item}}</td>
+        </tr>
+        {% endfor %}
+
+        <tfoot>
+            <td colspan="4" align="right" font-size="20">
+                <h3>Итого:</h3>
+            </td>
+            <td>
+                <h3>{{cart.order_price}}</h3>
+            </td>
+        </tfoot>
+    </table>
+    </table>
+    <button type="submit" class="btn btn-warning" name="action" value="update"><i class="bi bi-arrow-clockwise"></i></button>
+    <button type="submit" class="btn btn-warning" name="action" value="create">Создать заказ</button>
+</form>
+
+{% else %}
+<h2>Ваша корзина пустая</h2>
+{% endif %}
+{% endblock MAIN_CONTENT %}

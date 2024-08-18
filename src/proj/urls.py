@@ -26,7 +26,7 @@ app_name = "proj"
 urlpatterns = [
     path('s-admin/', admin.site.urls),
     path('refs/', include("refs.urls", namespace="references")),
-    path('cart/', include("cart.urls", namespace="cart")),
+    path('orders/', include("orders.urls", namespace="orders")),
     path('goods/', include("goods.urls", namespace="goods")),
     path('accounts/', include("acc.urls", namespace="accounts")),
 

@@ -2,6 +2,6 @@
 
 {% block MAIN_CONTENT %}
 
-    <h1>Welcome {{ new_user.username }}!</h1>
-    <p>Your account has been successfully created. Now you can <a href="{% url "accounts:login" %}">log in</a>.</p>
+    <h1>Привет, {{ new_user.first_name }}!</h1>
+    <p>Ваш аккаунт успешно создан и теперь вы можете <a href="{% url "accounts:login" %}">войти в него</a>.</p>
 {% endblock MAIN_CONTENT%}

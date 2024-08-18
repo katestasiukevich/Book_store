@@ -48,7 +48,7 @@ PROJ_APPS = [
     'refs',
     'goods',
     'acc',
-    'cart',
+    'orders',
 ]
 
 INSTALLED_APPS += PROJ_APPS
@@ -72,8 +72,6 @@ ROOT_URLCONF = 'proj.urls'
 LOGIN_REDIRECT_URL = reverse_lazy('goods:home')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
-
-CART_SESSION_ID = 'cart'
 
 TEMPLATES = [
     {

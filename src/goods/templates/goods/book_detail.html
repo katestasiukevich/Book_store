@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block MAIN_CONTENT %}
-    {% csrf_token %}
+
     <a href="{% url "goods:book-list" %}"> ⭠ Назад к списку книг</a>
     <h1 class="mt-5">О КНИГЕ</h1>
     <img src="{{ object.cover.url }}">
@@ -31,5 +31,13 @@
         {% endif %}
         {% if  perms.goods.delete_book %}                
             <a href="{% url "goods:book-delete" object.id %}"><button>Удалить</button></a>
+        {% else %}
+            <form action="{% url "orders:add-item-to-cart" %}" method="post">
+                {% csrf_token %}
+                <label class="form-label">Количество</label>
+                <input type="hidden" name="item_id" value="{{object.id}}">
+                <input type="number" name="quantity" step="1" min="1">
+                <button type="submit" class="btn btn-warning"><i class="bi bi-cart4"></i></button>
+            </form>
         {% endif %}
 {% endblock MAIN_CONTENT %}
