@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 from django.conf.urls.static import static
 from django.conf import settings
 from goods import views as goods_views
@@ -24,11 +26,14 @@ app_name = "proj"
 urlpatterns = [
     path('s-admin/', admin.site.urls),
     path('refs/', include("refs.urls", namespace="references")),
+    path('cart/', include("cart.urls", namespace="cart")),
     path('goods/', include("goods.urls", namespace="goods")),
     path('accounts/', include("acc.urls", namespace="accounts")),
 
     path('contact-us/', goods_views.contact_form, name="contact-us"),
     path('message-sent/', goods_views.message_sent, name="message-sent"),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:

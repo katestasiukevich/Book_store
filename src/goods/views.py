@@ -20,6 +20,7 @@ class BookCreate(PermissionRequiredMixin, generic_views.CreateView):
     permission_required = "goods.add_book"
     model = models.Book
     login_url = reverse_lazy("accounts:login")
+    success_url = reverse_lazy("accounts:profile")
     fields = [
         "title",
         "author",
