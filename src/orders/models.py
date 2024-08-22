@@ -41,4 +41,11 @@ class OrderInCart(models.Model):
 
     def __str__(self):
         return f'Книга {self.item.pk} в корзине {self.cart.pk} в количестве {self.quantity} штук(и)'
+
+class Order(models.Model):
+    cart = models.OneToOneField(Cart, on_delete=models.PROTECT, related_name="cart")
+    phone = models.CharField(verbose_name="Телефон", max_length=13)
     
+    def __str__(self):
+        return f" Заказ № {self.pk}"
+       

@@ -1,7 +1,10 @@
+from django.forms.models import BaseModelForm
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.views import generic
 from django.urls import reverse_lazy
-from . import models
+from . import models, forms
+from acc import views as acc_view
 
 
 # Create your views here.
@@ -67,8 +70,9 @@ def add_item_to_cart_view(request):
         add_item_to_cart(request)
     return HttpResponseRedirect(reverse_lazy("orders:view-cart"))
 
-def create_order():
-    pass
+def create_order(request):
+    cart = get_current_cart(request)
+
 
 def evaluate_cart(request):
     if request.method == "POST":
@@ -80,21 +84,36 @@ def evaluate_cart(request):
                 action = value
         if action == "update":
             return HttpResponseRedirect(reverse_lazy("orders:view-cart"))
-        create_order()
         return HttpResponseRedirect(reverse_lazy("orders:view-order-created"))
 
+def get_customer_phone(user):
+    code = user.profile.code
+    phone = user.profile.phone
+    return "+375" + str(code) + str(phone)
 
+class CreateOrderView(generic.CreateView):
+    model = models.Order
+    form = forms.CreateOrderForm
+    fields = [
+        'phone'
+    ]
+    template_name = "orders/create_order.html"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart'] = get_current_cart(self.request)
+        return context
+    
+    def get_form(self, **kwargs):
+        form = super().get_form(**kwargs)
+        form.fields['phone'].initial = get_customer_phone(self.request.user)
+        return form
+    
+    # def form_valid(self, form):
+    #     success_url = reverse_lazy("accounts:profile")
+    #     profile = form.save(commit=False)
+    #     profile.user = self.request.user
+    #     profile.save()
+    #     self.object = profile
+    #     return HttpResponseRedirect(success_url)
+    

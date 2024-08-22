@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block MAIN_CONTENT %}
+
+<h1>Ваш заказ:</h1>
+<ul>
+    <li>Дата создания: {{ cart.created }}</li>
+    <li>Дата редактирования: {{ cart.updated }}</li>
+</ul>
+    <table class="table table-hover" border="1">
+        <thead>
+            <th>Обложка</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Сумма</th>
+        </thead>
+        {% for item in cart.items.all %}
+        <tr>
+            <td><img src="{{item.item.cover.url}}" width=70px></td>
+            <td>"{{item.item.title}}"{{item.item.author}}</td>
+            <td>{{item.item.price}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.total_price_per_item}}</td>
+        </tr>
+        {% endfor %}
+
+        <tfoot>
+            <td colspan="4" align="right" font-size="20">
+                <h3>Итого:</h3>
+            </td>
+            <td>
+                <h3>{{cart.order_price}}</h3>
+            </td>
+        </tfoot>
+    </table>
+    <hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-warning">Заказать</button>
+    </form>
+{% endblock MAIN_CONTENT %}
