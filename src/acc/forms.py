@@ -42,21 +42,21 @@ class UserRegistrationForm(forms.ModelForm):
         return cd["password2"]
 
 
-class UserEditForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ("first_name", "last_name", "email")
+# class UserEditForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ("first_name", "last_name", "email")
 
 
-class ProfileEditForm(forms.ModelForm):
-    class Meta:
-        model = CustomerProfile
-        fields = (
-            "code",
-            "phone",
-            "country",
-            "city",
-            "home_index",
-            "address1",
-            "address2",
-        )
+# class ProfileEditForm(forms.ModelForm):
+#     class Meta:
+#         model = CustomerProfile
+#         fields = (
+#             "code",
+#             "phone",
+#             "country",
+#             "city",
+#             "home_index",
+#             "address1",
+#             "address2",
+#         )
