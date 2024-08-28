@@ -4,12 +4,11 @@ from django.db.models.query import QuerySet
 from django.http.response import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from . import models, forms
 from .forms import UserRegistrationForm
 from django.shortcuts import render
-from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm
+
 
 
 class CheckProfileMixin(LoginRequiredMixin):

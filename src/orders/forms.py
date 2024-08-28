@@ -5,5 +5,6 @@ class CreateOrderForm(forms.ModelForm):
     class Meta:
         model = models.Order
         fields = [
-            "phone"
+            "phone",
+            "address"
         ]

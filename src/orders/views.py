@@ -1,3 +1,4 @@
+from urllib import request
 from django.forms.models import BaseModelForm
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -49,7 +50,7 @@ def add_item_to_cart(request):
     cart = get_or_create_current_cart(request)
     item_in_cart, created = models.OrderInCart.objects.get_or_create(
         cart=cart,
-        item= item,
+        item=item,
         defaults={'quantity': quantity,
                   'price_per_item': price,
                   }
@@ -72,6 +73,7 @@ def add_item_to_cart_view(request):
 
 def create_order(request):
     cart = get_current_cart(request)
+    return cart
 
 
 def evaluate_cart(request):
@@ -91,13 +93,15 @@ def get_customer_phone(user):
     phone = user.profile.phone
     return "+375" + str(code) + str(phone)
 
+def get_customer_address(user):
+    address = user.profile.address1
+    return address
+
 class CreateOrderView(generic.CreateView):
     model = models.Order
-    form = forms.CreateOrderForm
-    fields = [
-        'phone'
-    ]
+    form_class = forms.CreateOrderForm
     template_name = "orders/create_order.html"
+    success_url = reverse_lazy("orders:created-page")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -106,14 +110,24 @@ class CreateOrderView(generic.CreateView):
     
     def get_form(self, **kwargs):
         form = super().get_form(**kwargs)
-        form.fields['phone'].initial = get_customer_phone(self.request.user)
+        if self.request.user.is_authenticated:
+            form.fields['phone'].initial = get_customer_phone(self.request.user)
+            form.fields['address'].initial = get_customer_address(self.request.user)
+        # else:
+        #     form.fields['phone']
+        #     form.fields['address']
+
         return form
     
-    # def form_valid(self, form):
-    #     success_url = reverse_lazy("accounts:profile")
-    #     profile = form.save(commit=False)
-    #     profile.user = self.request.user
-    #     profile.save()
-    #     self.object = profile
-    #     return HttpResponseRedirect(success_url)
+    def form_valid(self, form):
+        order = form.save(commit=False)
+        order.cart = get_current_cart(self.request)
+        order.save()
+        self.object = order
+        return HttpResponseRedirect(self.get_success_url())
+
+    
+class OrderCreatedView(generic.TemplateView):
+    template_name = "orders/created.html"
+
     
