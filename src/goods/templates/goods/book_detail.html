@@ -36,7 +36,7 @@
                 {% csrf_token %}
                 <label class="form-label">Количество</label>
                 <input type="hidden" name="item_id" value="{{object.id}}">
-                <input type="number" name="quantity" step="1" min="1">
+                <input type="number" name="quantity" step="1" min="1" >
                 <button type="submit" class="btn btn-warning"><i class="bi bi-cart4"></i></button>
             </form>
         {% endif %}

@@ -68,7 +68,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'proj.urls'
 
-LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:profile-create')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 
