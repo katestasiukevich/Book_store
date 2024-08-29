@@ -25,6 +25,7 @@ from goods import views as goods_views
 app_name = "proj"
 urlpatterns = [
     path('s-admin/', admin.site.urls),
+    path('', goods_views.MainPage.as_view(), name="home"),
     path('refs/', include("refs.urls", namespace="references")),
     path('orders/', include("orders.urls", namespace="orders")),
     path('goods/', include("goods.urls", namespace="goods")),

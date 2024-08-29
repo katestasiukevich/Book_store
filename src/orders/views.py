@@ -1,15 +1,15 @@
-from urllib import request
-from django.forms.models import BaseModelForm
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse_lazy
 from . import models, forms
-from acc import views as acc_view
+
+
 
 
 # Create your views here.
 def update_item_in_cart(key, quantity):
+    ""
     item_in_cart_id = int(key.split("_")[1])
     item_in_cart = models.OrderInCart.objects.get(pk=item_in_cart_id)
     if int(quantity) == 0:
@@ -20,6 +20,7 @@ def update_item_in_cart(key, quantity):
     item_in_cart.quantity = int(quantity)
 
 def get_or_create_current_cart(request):
+    ""
     cart_id = request.session.get("cart_id", None)
     if request.user.is_anonymous:
         user = None
@@ -34,6 +35,7 @@ def get_or_create_current_cart(request):
     return cart
 
 def get_current_cart(request):
+    ""
     cart_id = request.session.get("cart_id", None)
     cart = models.Cart.objects.filter(pk=cart_id)
     if cart:
@@ -43,6 +45,7 @@ def get_current_cart(request):
     return cart
 
 def add_item_to_cart(request):
+    ""
     item_id = int(request.POST.get("item_id"))
     item = models.Book.objects.get(pk=item_id)
     price = item.price
@@ -61,12 +64,16 @@ def add_item_to_cart(request):
         item_in_cart.save()
 
 
+
+
 def view_cart(request):
+    ""
     cart = get_or_create_current_cart(request)
     context = {'cart': cart}
     return render(request, template_name="orders/view_cart.html", context=context)
 
 def add_item_to_cart_view(request):
+    ""
     if request.method == "POST":
         add_item_to_cart(request)
     return HttpResponseRedirect(reverse_lazy("orders:view-cart"))
@@ -113,10 +120,6 @@ class CreateOrderView(generic.CreateView):
         if self.request.user.is_authenticated:
             form.fields['phone'].initial = get_customer_phone(self.request.user)
             form.fields['address'].initial = get_customer_address(self.request.user)
-        # else:
-        #     form.fields['phone']
-        #     form.fields['address']
-
         return form
     
     def form_valid(self, form):
@@ -124,10 +127,12 @@ class CreateOrderView(generic.CreateView):
         order.cart = get_current_cart(self.request)
         order.save()
         self.object = order
+        models.OrderInCart.objects.all().delete()
         return HttpResponseRedirect(self.get_success_url())
+
+        
 
     
 class OrderCreatedView(generic.TemplateView):
+    ""
     template_name = "orders/created.html"
-
-    

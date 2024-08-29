@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from goods.models import Book
+from proj import settings
 
 # Create your models here.
 User = get_user_model()
@@ -23,7 +24,7 @@ class Cart(models.Model):
         for item in order:
             total_order_price += item.total_price_per_item
         return total_order_price
-
+    
     def __str__(self) -> str:
         return f"Cart for №{self.pk} {self.user}"
 

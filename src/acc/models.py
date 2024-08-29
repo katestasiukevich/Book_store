@@ -16,6 +16,7 @@ class CustomerProfile(models.Model):
     user = models.OneToOneField(user, related_name="profile", on_delete=models.CASCADE)
     first_name = models.CharField(verbose_name="Имя", max_length=100)
     last_name = models.CharField(verbose_name="Фамилия", max_length=100)
+    email = models.EmailField(verbose_name="Email")
     code = models.CharField(
         verbose_name="Код мобильного оператора",
         max_length=2,

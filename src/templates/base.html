@@ -206,7 +206,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                  <a aria-current="page" href="{% url "goods:home" %}" class="{% if request.path == "/goods/home/" %} nav-link active {% else %} nav-link {% endif %}" >Главная</a>
+                  <a aria-current="page" href="{% url "home" %}" class="{% if request.path == "/goods/home/" %} nav-link active {% else %} nav-link {% endif %}" >Главная</a>
                 </li>
                     <li class="nav-item"><a href="{% url "goods:book-list" %}" class="{% if request.path == "/goods/book-list/" %} nav-link active {% else %} nav-link {% endif %}">Книги</a></li>
                     <li class="nav-item"><a href="{% url "references:author-list" %}" class="{% if request.path == "/refs/author-list/" %} nav-link active {% else %} nav-link {% endif %}">Авторы</a></li>

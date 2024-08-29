@@ -35,6 +35,7 @@ class CustomerProfileCreate(CheckProfileMixin, generic.CreateView):
     fields = [
         "first_name",
         "last_name",
+        "email",
         "code",
         "phone",
         "country",
@@ -44,6 +45,15 @@ class CustomerProfileCreate(CheckProfileMixin, generic.CreateView):
         "address2",
     ]
     form = forms.CustomerProfileForm
+
+    def get_form(self, **kwargs):
+        form = super().get_form(**kwargs)
+        if self.request.user.is_authenticated:
+            form.fields['first_name'].initial = self.request.user.first_name
+            form.fields['last_name'].initial = self.request.user.last_name
+            form.fields['email'].initial = self.request.user.email
+        return form
+    
     def form_valid(self, form):
         success_url = reverse_lazy("accounts:profile")
         profile = form.save(commit=False)
@@ -51,6 +61,11 @@ class CustomerProfileCreate(CheckProfileMixin, generic.CreateView):
         profile.save()
         self.object = profile
         return HttpResponseRedirect(success_url)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Создание профиля'
+        return context
 
 
 
@@ -69,6 +84,7 @@ class CustomerProfileDetail(CheckProfileMixin, generic.DetailView):
                 username=user,
                 first_name = self.first_name,
                 last_name = self.last_name,
+                email = "fill in",
                 code = "chose",
                 phone = "fill in",
                 country = "fill in",
@@ -95,7 +111,42 @@ def register(request):
         user_form = UserRegistrationForm()
     return render(request, 'acc/register.html', {'user_form': user_form})
 
+class CustomerProfileUpdate(CheckProfileMixin, generic.UpdateView):
+    model = models.CustomerProfile
+    template_name = "acc/profile_form.html"
+    fields = [
+        "first_name",
+        "last_name",
+        "email",
+        "code",
+        "phone",
+        "country",
+        "city",
+        "home_index",
+        "address1",
+        "address2",
+    ]
 
+    def get_object(self):
+        user = self.request.user
+        profile = models.CustomerProfile.objects.filter(user__pk=user.pk)
+        if profile:
+            profile = profile[0]
+        return profile
+    
+    def form_valid(self, form):
+        success_url = reverse_lazy("accounts:profile")
+        profile = form.save(commit=False)
+        profile.user = self.request.user
+        profile.save()
+        self.object = profile
+        return HttpResponseRedirect(success_url)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["headline"] = 'Редактирование профиля'
+        return context
 # @login_required
 # def edit(request, user_id):
 #     if request.method == 'POST':

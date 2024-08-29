@@ -3,14 +3,23 @@
 {% csrf_token %}
 <h1>ПРОФИЛЬ {{user.username}}</h1>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item"><b>ИМЯ</b>: {{object.first_name}}</li><br>
+            <li class="list-group-item"><b>ИМЯ</b>: {{object.first_name}} </li><br>
             <li class="list-group-item"><b>ФАМИЛИЯ</b>: {{object.last_name}}</li><br>
-            <li class="list-group-item"><b>ГОРОД</b>: {{object.city}}</li><br>
-            <li class="list-group-item"><b>СТРАНА</b>: {{object.country}}</li><br>
             <li class="list-group-item"><b>EMAIL</b>: {{object.email}}</li><br>
-            <li class="list-group-item"><b>ТЕЛЕФОН</b>: +375({{object.code}}){{object.phone}} </li><br>
-            <li class="list-group-item"><b>АДРЕС 1</b>: {{object.address1}}</li><br>
-            <li class="list-group-item"><b>АДРЕС 2</b>: {{object.address2}}</li><br>
+            <li class="list-group-item"><b>ТЕЛЕФОН</b>:
+                +375
+                {% if object.code %}
+                    ({{object.code}})
+                {% else %}
+                    (_ _)
+                {% endif %}
+                {% if object.phone %}{{object.phone}}{% else %}_ _ _  _ _  _ _{% endif %}</li><br>
+            <li class="list-group-item"><b>ГОРОД</b>:{% if object.city %} {{object.city}}{% else %}{% endif %}</li><br>
+            <li class="list-group-item"><b>СТРАНА</b>:{% if object.country %} {{object.country}}{% else %}{% endif %}</li><br>
+            <li class="list-group-item"><b>ИНДЕКС</b>:{% if object.index %} {{object.index}}{% else %}{% endif %}</li><br>
+            <li class="list-group-item"><b>АДРЕС 1</b>:{% if object.address1 %} {{object.address1}}{% else %}{% endif %}</li><br>
+            <li class="list-group-item"><b>АДРЕС 2</b>:{% if object.address2 %} {{object.address2}}{% else %}{% endif %}</li><br>
         </ul>
+        <a href="{% url "accounts:profile-update" %}"><button>Редактировать</button></a>
         {% comment %} <a href="{% url "accounts:edit"%}">edit</a> {% endcomment %}
 {% endblock MAIN_CONTENT %}
