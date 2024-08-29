@@ -221,9 +221,12 @@
               </form>
               <span class="user">
                 {% if request.user.is_authenticated %}
-                    Привет, <a href="{% url "accounts:profile" %}"><button class="btn btn-warning"> {{ request.user.first_name }} </button></a>
+
+                Привет, {{ user.username }} <a href="{% url "accounts:profile" %}"><button class="btn btn-warning"><i class="bi bi-person-square"></i></button></a>
+                    <a href="{% url "orders:view-cart" %}"><button class="btn btn-outline-warning"><i class="bi bi-cart4"></i></button></a>
                     <a href="{% url "logout" %}"><button class="btn btn-outline-warning">Выйти</button></a>
                 {% else %}
+                    <a href="{% url "orders:view-cart" %}"><button class="btn btn-outline-warning"><i class="bi bi-cart4"></i></button></a>
                     <a href="{% url "login" %}"><button class="btn btn-outline-warning">Войти</button></a>
                 {% endif %}
             </span>

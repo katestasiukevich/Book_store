@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse_lazy
 from . import models, forms
+from acc import models as acc_models
 
 
 
@@ -103,6 +104,9 @@ def get_customer_phone(user):
 def get_customer_address(user):
     address = user.profile.address1
     return address
+def get_customer_profile(user):
+    profile = user.profile
+    return profile
 
 class CreateOrderView(generic.CreateView):
     model = models.Order
@@ -117,7 +121,9 @@ class CreateOrderView(generic.CreateView):
     
     def get_form(self, **kwargs):
         form = super().get_form(**kwargs)
-        if self.request.user.is_authenticated:
+        user = self.request.user
+        profile = acc_models.CustomerProfile.objects.filter(user__pk=user.pk)
+        if self.request.user.is_authenticated and profile:
             form.fields['phone'].initial = get_customer_phone(self.request.user)
             form.fields['address'].initial = get_customer_address(self.request.user)
         return form
